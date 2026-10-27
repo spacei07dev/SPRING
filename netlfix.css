@@ -1,0 +1,352 @@
+ *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #000;
+}
+.kane{
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.8),
+        rgba(0,0,0,0.3) 30%,
+        rgba(0,0,0,0.3) 70%,
+        rgba(0,0,0,0.8)
+    ),
+    radial-gradient(
+        circle,
+        rgba(0,0,0,0.4) 30%,
+        rgba(0,0,0,0.9) 100%
+    ), 
+     url(imgi_4_NG-en-20260921-TRIFECTA-perspective_7e430f0a-4966-48f4-a9a0-1937128cb416_small.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 98vh;   
+
+}
+.navbar{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+.diaz{
+    height: 80vh;
+    color: white;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+    
+}
+.logo{
+    margin-top: 3em;
+    width: 70%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-items: left;
+    padding-left: 100px;
+}
+.logo img{
+    width: 150px;
+    height: 50px;
+}
+.sign-in{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sign-in button{
+    height: 38px;
+    width: 85px;
+    color: white;
+    background-color: rgb(192, 12, 12);
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.sign-in button:hover{
+    border: solid 2px white;
+    cursor: pointer;
+}
+.txt h1{
+    padding-top: 100px;
+    font-size: 3.4rem;
+    font-weight: 800;
+}
+.txt h3{
+    margin-top: 25px;
+    font-size: 1.2rem;
+    font-weight: 700;
+} 
+.txt p{
+    padding-top: 35px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.email{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.email input{
+    height: 50px;
+    width: 390px;
+    background-color: rgb(15, 15, 15);
+    color: white;
+    border: solid 1px rgba(255, 255, 255, 0.335);
+    font-weight: 600;
+    font-size: 16px;
+    padding-left: 15px;
+    border-radius: 5px;
+}
+
+.email button{
+    height: 50px;
+    width: 150px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+}
+.email button:hover{
+    border: solid 2px white;
+    background-color: rgb(218, 15, 15);
+    cursor: pointer;
+} 
+
+.curve-div{
+    height: 120px;
+    background: #000;
+}
+
+.curve {
+    background: linear-gradient(to bottom, rgb(15, 22, 54) 2%, rgb(0, 0, 0)30%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    border-top: 3px solid #ff007f; 
+    border-radius: 50%;
+}
+
+
+.Trending{
+    height: 1740px;
+    width: 1100px;
+    margin: auto;
+}
+.trending-txt{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.cards-cont{
+    height: 270px;
+    display: flex;
+    gap: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+.cards{
+    width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.7s ease;
+}
+.cards:hover{
+    transform: scale(1.2);
+}
+.cards img{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+.cards h1{
+    position: absolute;
+    left: -15px;
+    bottom: 0;
+    font-size: 80px;
+    font-weight: 900;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: black;
+    -webkit-text-stroke: white 2px;
+    z-index: 1
+}
+.Reasons{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+.reason-div{
+    height: 240px;
+    display: grid;
+    gap: 33px;
+    grid-template-columns: repeat(4, 1fr);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.box{
+   background: linear-gradient(
+  to bottom right,
+  rgb(26, 33, 69),
+  rgb(33, 14, 23)
+);
+    height: 90%;
+    width: 250px;
+    border-radius: 10px;
+    padding: 20px 10px 20px 10px;
+}
+.box h4{
+    color: white;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+.box p{
+    color: rgba(255, 255, 255, 0.578);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 20px;
+}
+.box-icon{
+    margin-left: 150px;
+    margin-top: 10px;
+}
+.faq{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.questions{
+    width: 100%;
+    background: none;
+    color: white;
+    margin: auto;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.net-flix{
+    width: 100%;
+    height: 11vh;
+    background-color: #2D2D2D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:  0 15px 0 15px;
+    margin-top: 10px;
+}
+
+.net-flix h1{
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.ready-div{
+    height: 90px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 70px;
+}
+.ready-div p{
+    font-size: 15px;
+}
+.email2-div{
+    height: 70%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    margin-top: 5px;
+}
+.email2-div input{
+    height: 50px;
+    width: 500px;
+    background-color: rgb(15, 15, 15);
+    color: white;
+    border: solid 1px rgba(255, 255, 255, 0.335);
+    font-weight: 600;
+    font-size: 16px;
+    padding-left: 15px;
+    border-radius: 5px;
+}
+.email2-div button{
+    height: 50px;
+    width: 150px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600 ;
+}
+footer{
+    height: 380px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 70px;
+}
+
+.contact{
+    text-decoration: none;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.87);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;  
+}
+.footer-links{
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px 50px;
+    padding: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.footer-links a{
+    color: #999;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.Language{
+    height: 30px;
+    width: 110px;
+    border: solid 1px white;
+    border-radius: 5px;
+    background-color: black;
+    padding: 4px 8px 4px 8px;
+    color: white;
+    font-weight: 700;
+}
+.Nigeria{
+    color: rgba(255, 255, 255, 0.737);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin-top: 30px;
+}
+.page{
+    color: rgba(255, 255, 255, 0.497);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    margin-top: 30px;
+}

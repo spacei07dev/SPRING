@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="port.css">
+    <div class="neymar">
+      <h3>learning software engineering-<a href="">Try our free curriculum</a></h3>
+    </div>
+    <!-- <div class="messi"> -->
+  <p>SEPTEMBER 21,2026/ <a href="">#PYTHON</a></p>  
+
+<h1>How to Port a Jekyll Blog Theme to Python: Lessons From Actually Doing It</h1>
+<img src="823d8c4d-c927-4c49-a348-7148430f6e7f.webp" alt="" width="100px" height="100px"> brooklyn
+<br>
+<br>
+<img src="1691ded5-fe4e-405e-aa70-19cd95a700da.png" alt="" width="1000px" height="1000px"> 
+
+<h4>I've been following a <a href=""> tufte-jekyll</a>  styled blog for a couple of years and that led me to discover Edward Tufte's <a href="">book </a>  layout.</h4>
+
+<p> <a href="">Edward Tufte</a> is renowned for his work on data visualization and information design, and he's a fierce advocate of high data density and for the removal of <a href="">"chartjunk"</a> .</p>
+
+
+<p>This is what <a href="">tufte-css </a>  (and its many ports, including this one) brings to the web: generous whitespace, a serif reading column, and precious sidenotes for supplementary information (instead of disruptive modals).</p>
+
+
+<p>I liked almost everything about tufe-jekyll blogs except the parts that had nothing to do with writing: a <a href="">Jekyll</a> powered <a href="">Ruby </a>  version I only ever touched for this one project.</p>
+
+
+<p>So I rewrote the whole theme in Python. Not because Jekyll is bad. It isn't. But because I wanted a toolchain I'm comfortable with. I was also curious whether I actually understood and could assimilate how a <a href=""> static site generator</a> works.</p>
+
+
+<img src="72b186a8-6781-4101-a58c-09331f54fba0.gif" alt="" width="500px" height="500px">
+
+
+<br>
+
+<p> <a href=""> tufte-python </a>  is that port and this write-up acts as a guide: what actually has to happen when you
+     move a Liquid-based Jekyll theme to a Python one, and the specific places I got it wrong before I got it right. </p> <br>
+
+<p>None of this is Jekyll-specific advice.
+ The same pattern applies whether your target is <a href="">Hugo</a>(GoLang), <a href="">Eleventy </a>Eleventy (JavaScript), or something 
+ else.</p>
+<br>
+<p>Here, you'll tinker on very focused technical points but also discover a way to break things down. If you're porting a different theme, or porting to a different language entirely,
+ remember: the syntax changes but the shape of the challenge is the same.</p>
+
+
+<h1>Table of Contents</h1>
+
+<ul>
+    <li>
+        <a href="#">But Wait, Why a Static Blog?</a>
+    </li>
+
+    <li>
+        <a href="#">Why Port a Theme Instead of Just Using It As-Is?</a>
+    </li>
+
+    <li>
+        <a href="#">What You'll Need</a>
+    </li>
+
+    <li>
+        <a href="#">See the Destination First: Get the Finished Port Running</a>
+        <ul>
+            <li><a href="#">Setup</a></li>
+            <li><a href="#">Write your First Post</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="#">From Jekyll to Python, Step by Step</a>
+    </li>
+
+    <li>
+        <a href="#">Step 1: Inventory the Source Theme's Moving Parts</a>
+    </li>
+
+    <li>
+        <a href="#">Step 2: Collapse Scattered Config Into One File</a>
+    </li>
+
+    <li>
+        <a href="#">Step 3: Rebuild Custom Liquid Tags as Text Shortcodes</a>
+    </li>
+<li>
+    <a href="#">Step 3: Rebuild Custom Liquid Tags as Text Shortcodes</a>
+
+    <ul>
+        <li>
+            <a href="#">How Jekyll does it</a>
+        </li>
+    </ul>
+</li>
+
+<li>
+    <a href="#">Why you can't just port this 1:1 into Jinja2</a>
+
+    <ul>
+        <li>
+            <a href="#">What actually works</a>
+        </li>
+
+        <li>
+            <a href="#">The rendered features</a>
+        </li>
+    </ul>
+</li>
+
+<li>
+    <a href="#">Step 4: Replace Compiled Sass With Swappable Plain CSS</a>
+</li>
+
+<li>
+    <a href="#">Step 5: Swap Filesystem-Watching for an Explicit Build Cache</a>
+</li>
+
+<li>
+    <a href="#">Step 6: Replace Jekyll's Native GitHub Pages Build With Your Own CI</a>
+</li>
+
+<li>
+    <a href="#">Step 7: Verify Feature Parity, Not Just "It Builds"</a>
+</li>
+
+<li>
+    <a href="#">What I'd Tell Myself at the Start</a>
+</li>
+
+</ul>
+
+
+
+
+<h1>But Wait, Why a Static Blog?</h1>
+<p>Compared to dynamic websites, a <a href="">static </a> site has a simple publishing workflow. In this case, it consists of five steps:</p>
+
+<ol>
+    <li>Write a post in Markdown file</li>
+    <li>Run the generator</li>
+    <li>Preview and review the result.</li>
+    <li>Commit the source files.</li>
+    <li>Let GitHub Actions publish the site.</li>
+</ol>
+
+
+<p>This workflow is simple enough for the needs I have: occasionally publishing posts on my personal Dev blog. It keeps the content readable in a text editor and makes every change easy to review.</p>
+<br>
+
+
+<p>Like its predecessor, the actual codebase keeps Jinja2 <a href="">templates</a>, Markdown, and a YAML <a href=""> front matter</a>  for contents. A GitHub Actions workflow builds the site and deploys the generated _site/ directory to GitHub Pages.</p>
+
+<h1>Why Port a Theme Instead of Just Using It As-Is ?</h1>
+<p>There are various reasons for doing it this way.</p>
+<br>
+
+
+
+<p>First, maybe you want out of a toolchain you don't use anywhere else. For me that was <a href="">Ruby</a> installed on my machine for exactly and only this purpose. It was flaky enough that update my blog occasionally turned into fix my Ruby environment first.</p>
+
+<br>
+
+<p>Or maybe you already write in the target language daily, and would rather read and extend a generator you're fluent in than learn just enough of another ecosystem to (eventually) tweak a plugin file.</p>
+
+
+<p>Or perhaps you want to understand static site generators, not just operate one. Porting forces you to read every template, every custom tag, and every build step closely enough to re-implement it. You learn and retain information differently. It's a very different level of understanding than oh! it works, and it's one of the best ways to achieve mastery.</p>
+
+<h1>What You'll Need</h1>
+
+<ul>
+<li>Basic Python: virtual environments, reading someone else's code.</li>
+    <li>Basic Python: virtual environments, reading someone else's code.</li>
+    <li>Familiarity with <a href="">Markdown</a> and <a href="">Git</a> (you can even learn it as a game).</li>
+    <li>Basic familiarity with Jekyll's project <a href="">layout</a>: _config.yml, _layouts/, _includes/, and Liquid template  <a href="">syntax</a>.</li>
+    <li>No prior Jinja2 experience required. It's close enough to Liquid conceptually that you'll pick it up as you go.</li>
+</ul>
+
+
+<h1>See the Destination First: Get the Finished Port Running</h1>
+<p>Before I get into how the port actually came together (including the parts that broke), it's worth seeing where it ends up. The theme I'm describing already exists as a ready-to-ship project. <a href="">tufte-python</a>  comes with its own tutorials and you can have it <a href=""> running </a> locally within minutes.</p>
+
+<p>This gives you something concrete to compare against as you read the rest of this, and something to fork if you'd rather adapt an existing port than build your own from zero.</p>
+
+<h1>Setup    </h1>
+
+<p>First, clone it and point it at your own repository (or fork it)</p>
+
+<p>Start by creating a new, empty repository on GitHub. Give it a name such as my-blog:</p>
+
+
+<p>git clone https://github.com/hyperphantasia/tufte-python.git my-blog
+cd my-blog</p>
+
+
+<p>Next, change the origin remote to point to your repository</p>
+
+
+<p>git remote set-url origin <your-repository-url></your-repository-url></p>
+
+<p>Then push the project:</p>
+
+<p>git push -u origin main</p>
+
+<p>Next, install the dependencies in a virtual environment</p>
+
+
+<p>python -m venv .venv
+# Uncomment to match your OS
+# source .venv/bin/activate      # macOS/Linux
+# .venv\Scripts\Activate.ps1     # Windows PowerShell
+pip install -r requirements.txt</p>
+
+<p>Now you'll want to set basic configuration values before your first build.</p>
+
+
+<P>Open config.yml at the project root:</P>
+
+<p>title: "A Quiet Corner of the Web"
+author: "Your Name"
+email: "you@example.com"
+
+url: "https://yourusername.github.io"
+baseurl: "/my-blog"              # "" instead, if this is a user/org page
+permalink: "/articles/{year}/{slug}/"
+
+theme: "solAArized"
+options:
+  mathjax: true</p>
+
+
+<p>If you're publishing at https://yourusername.github.io/my-blog/, baseurl needs to match the repository name exactly, leading slash and no trailing slash. If you get this one wrong, every internal link and stylesheet reference on the deployed site will 404 while working fine locally (more on why in the point below).</p>
+
+<p>Finally, build and preview it:</p>
+
+<p>python build.py --serve --watch</p>
+
+
+<img src="9a27cf22-f9c7-4596-8933-a7691376adb4.png" alt="" width="700px" height="200px">
+
+<p>Open the address the terminal prints http://localhost:8000 (usually) and you should see the demo content that is already in content/. Leave --watch running and edit a post: the page rebuilds without you re-running anything.</p>
+
+
+<p>One thing is worth knowing now before it costs you a confusing afternoon later: the local --serve preview ignores baseurl on purpose, so links and assets resolve from the root of your dev server instead of a subdirectory.</p>
+
+<p>If you want to check the site exactly as it'll look once deployed, including the real baseurl: run python build.py --serve --production-urls instead. This is meant to preview the site using the production URL structure.</p>
+
+<p>That distinction is the entire reason the works locally, breaks in production bug exists for static sites in subdirectories, and it's worth deliberately testing both modes at least once before you deploy for real.</p>
+
+ </div>
+
+
+</body>
+</html>

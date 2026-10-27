@@ -1,0 +1,248 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #201313;
+}
+.topheader {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    /* position: sticky; */
+    /* z-index: 1000;
+    top: 0; */
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding-left: 50px;
+    background-color: #201313;
+}
+.topheader:hover {
+    color: gold;
+}
+.header-button button {
+    color: white;
+    background-color: #E03131;
+    width: 180px;
+    height: 35px;
+    border-radius: 40px;
+    margin-right: 80px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: sans-serif;
+    border:#E03131;
+}
+.header-button button::hover {
+    border: 2px;
+    border-color: #E03131;
+}
+.stakes {
+    display: flex;
+    margin-top: 20vh;
+    margin-left: 35px;
+}
+.stakes h1 {
+    color: white;
+    font-size: 40px;
+    width: 50vw;
+    font-family: sans-serif;
+}
+.image-division {
+    width:45vw;
+    margin-left: 60px;
+}
+.image-division img {
+    width: 250px;
+    height: 220px;
+    border-radius: 40px;
+}
+.imgi46 {
+    background-color: #29A7D1;
+}
+.imgi47 {
+    background-color: #A434E9;
+    margin-left: 40px;
+}
+.imgi49 {
+    background-color: #2BBE8F;
+    margin-top: 30px;
+    margin-left:240px;
+}
+.paragraph {
+    color: white;
+}
+.paragraph p {
+    width: 39vw;
+    margin-top: -580px;
+    font-size: 20px;
+    margin-left:40px;
+    line-height: 1.4;
+    font-family: sans-serif;
+    font-weight: none;
+}
+.talk {
+    color: white;
+    background-color: #E03131;
+    width: 160px;
+    height:50px;
+    border-radius: 40px;
+    margin-left: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: sans-serif;
+    border:#E03131;
+    margin-top: 50px;
+}
+.video-sec{
+    background-color: #2F1D1C;
+    width: 98vw;
+    height: 100px; 
+}
+.case {
+    color: #C1BAB7;
+    font-size: 25px;
+    font-family: sans-serif;
+    margin-left: 60px;
+    margin-top: 40vh;
+    margin-bottom: 40px;
+}
+.health {
+    margin-top: 10vh;
+    color: white;
+    margin-left: 70px;
+}
+.health h1 {
+    font-size: 50px;
+    font-family: sans-serif;
+    font-weight: none;
+    color: white;
+}
+.close{
+    color:white;
+}
+.product {
+    display: flex;
+    margin-top:50px;
+    color: white;
+}
+.product button {
+    height: 48px;
+    background-color:#201313;
+    border-color: #29D1B8;
+    color: #29D1B8;
+    border-radius: 35px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+.manage {
+    margin-right:20px;
+    width: 380px;
+    color: white;
+}
+.design {
+    width: 510px;
+    margin-right: 100px;
+}
+.product p {
+    width: 59vw;
+    font-size: 28px;
+    font-weight:none;
+    font-family: sans-serif;
+    margin-right: 60px;
+    line-height: 1.5;
+    margin-top: -7vh;
+    color: white;
+}
+.ruby {
+    width: 280px;
+    height: 45px;
+    background-color:#201313;
+    border-color: #29D1B8;
+    color: #29D1B8;
+    border-radius: 35px;
+    font-size: 20px;
+    font-family: sans-serif;
+    /* margin-top: -18vh; */
+}
+.care {
+    display: flex;
+}
+.platform {
+    width: 41vw;
+    margin-top:50px;
+    font-size: 26px;
+    font-family: sans-serif;
+    font-weight: none;
+    line-height: 1.4;
+    color: white;
+}
+.imgi51 {
+    width: 80px;
+    height: 70px;
+    border-radius: 15px;
+    margin-top: 50px;
+    margin-left: 118px;
+}
+.matt {
+     margin-top:70px;
+    font-size: 26px;
+    font-family: sans-serif;
+    font-weight: none;
+    margin-left: 30px;
+    color: white;
+}
+.read {
+    font-size: 23px;
+    color: #FFE7A3;
+    text-decoration: underline dotted;
+    font-family: sans-serif;
+    margin-top: 30px;
+}
+.read:hover {
+    background-color: goldenrod;
+}
+.service {
+    margin-top: 24vh;
+    margin-left: 60px;
+    color: #C1BAB7;
+    font-size: 23px;
+    font-family: sans-serif;
+}
+.mission {
+    width: 35vw;
+    margin-top: 10vh;
+    margin-left: 60px;
+    color: white;
+    font-size: 55px;
+    font-family: sans-serif;
+}
+.specialize {
+    display: flex;
+    margin-top: 70px;
+    margin-left: 60px;
+}
+.reliability {
+    width: 32vw;
+    font-size: 23px;
+    color: #C1BAB7;
+    font-family: sans-serif;
+    font-weight: none;
+    line-height: 1.7;
+}
+.list-container {
+    margin-left: 250px;
+}
+.list-container h1 {
+    color: white;
+    font-size: 35px;
+    font-family: sans-serif;
+}.list-container ul {
+     font-size: 26px;
+    color: #FFE7A3;
+    text-decoration: underline dotted;
+    font-family: sans-serif;
+    margin-top: 5px;
+    line-height: 1.8;
+}

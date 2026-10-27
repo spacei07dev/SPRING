@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+
+
+
+<h1>Write your First Post</h1>
+<p>You can see the theme's features render on your own content instead of the demo's. Create content/posts/2024-06-07-hello.md:</p>
+
+<p>---
+title: "Hello, Margins"
+date: 2024-06-07 14:30:00
+categories: notes
+tags: [smile, writing]
+---
+
+{% newthought 'A new thought' %} can open a section without another heading.
+
+Here's a sidenote{% sidenote 'note-1' 'This appears in the right margin on wide screens, and behind a tap target on narrow ones.' %} to try the feature that made me want this theme in the first place.
+
+<!--more-->
+<!-- </p>
+
+<p>Many other visual features are available. They are discussed in details below, during implementation.</p>
+
+<p>Rebuild (or let --watch pick it up), and you should see a small-caps opening phrase and a numbered note sitting in the margin next to the paragraph that references it. If both of those render, the theme's core mechanism is working end to end on your machine, good! This is the mechanic the rest of this tutorial is all about.</p>
+
+<img src="9956118e-ce14-4b85-a6a4-8b41df5812a0.png" alt="" width="700px" height="200px">
+
+
+
+<p>In your repository's Settings → Pages, set the source to GitHub Actions if it isn't already. The workflow bundled with the project builds and deploys automatically on every push to main. I'll walk through what that workflow is actually doing in Step 6, since GitHub Pages doesn't know what to do with a Python build script.</p>
+
+
+<p>Ship it once you're happy with it locally:</p>
+
+
+
+
+<p>git add config.yml content/
+git commit -m "Configure site and add first post"
+git push</p>
+
+<p>With that running, you've got a working reference point online. Now here's how it got built.</p>
+
+<h1>From tufte-jekyll to tufte-python, Step by Step</h1>
+
+
+<p>
+    To migrate a Jekyll theme to a Python build system, it's important to follow structural steps that deconstruct the existing setup.
+</p>
+
+
+<p>Here, I determined six high-level steps, but that can vary depending on your task. It's very important to "own" the result in your mind first. This approach will enable you to consolidate a configuration and modernize the tooling with minimal breaks during the process.</p>
+
+<h1>Step 1: Inventory the Source Theme's Moving Parts</h1>
+
+<p>Before writing any Python, I listed every piece of Jekyll machinery the theme actually depended on. For this Liquid-heavy theme, that breaks into four categories:</p>
+
+<p>Jekyll piece	What it does	Expected Python equivalent
+_config.yml + _data/*.yml	Site metadata, base URL, permalink pattern, feature toggles, structured data like social links	One config.yml
+_layouts/ + _includes/	Page templates and partials	A templates/ directory of Jinja2 templates
+_plugins/*.rb	Ruby classes registering the theme's custom Liquid tags	A small Python module expanding the same tag syntax
+_sass/*.scss	Sass partials compiled into one styles</p>
+
+
+<p>I missed a fifth category on my first pass: the original theme ships two separate Rake tasks, one for scaffolding new posts and pages, and a completely different one: UploadToGithub.Rakefile for pushing the built site to a gh-pages branch by hand.</p>
+
+
+
+<p>This is needed because the theme's plugins aren't in Jekyll's Pages-safe allowlist. I'd read the main Rakefile and assumed I had the whole deploy story, then wondered for some time how the original author actually got the site live.</p>
+
+
+
+<p>Advice: read the whole repository root, not just the files with obvious names, before you commit to a structure.</p>
+
+<h1>Step 2: Collapse Scattered Config Into One File</h1>
+
+<p>The Jekyll version spreads settings across _config.yml (site title, URL, baseurl, permalink pattern) and one or more files under _data/: a toggle for MathJax and font loading in one file, a list of social links in another. That split follows Jekyll's own data-file conventions, but it's a complexity you don't need when you're writing your own (minimal) loader.</p>
+
+<P>I consolidated all of it into a single file with clearly named sections, so anyone extending the theme later can find every setting in one place instead of three. You get something like this:
+</p>
+
+<p># config.yml
+# --- site metadata ---
+title: "A Quiet Corner of the Web"
+author: "Your Name"
+email: "you@example.com"
+
+# --- URL settings ---
+url: "https://yourusername.github.io"
+baseurl: "/my-blog"
+permalink: "/articles/{year}/{slug}/"
+
+# --- feature toggles (previously in _data/options.yml) ---
+mathjax: true
+justify_text: false
+
+# --- social links (previously in _data/social.yml) ---
+social:
+  - link: "github.com/yourusername"
+    icon: icon-github</p>
+
+
+<br>
+
+<h1>Step 3: Rebuild Custom Liquid Tags as Text Shortcodes</h1>
+<p>This is the part that took the longest to tinker with. It's also where most of the theme's actual personality lives. This is where you actually build the visual features: sidenotes, margin figures, and epigraphs.</p>
+
+<h1>How Jekyll does it</h1>
+
+<p>Custom Liquid tags live in _plugins/, as Ruby classes Jekyll registers with its Liquid parser. Jekyll expands them during its Liquid render pass, before handing the result to its Markdown engine.</p>
+
+<p>A tag like {% sidenote "note-1" "Some aside." %} never reaches the Markdown converter as-is. It's already been swapped for HTML by the time Markdown sees the page.</p>
+
+
+<h1>Why you can't just port this 1:1 into Jinja2.</h1>
+
+
+<p>Jinja2 has its own tag system, but it's built for template-authoring logic (with loops, conditionals, and so on) not for parsing arbitrary quoted arguments out of prose sitting inside a Markdown file. And even if I'd built a Jinja2 extension for it, every existing post using the old {% sidenote ... %} syntax would need rewriting. This catch defeats the entire point of a drop-in port.</p>
+ --> -->
+
+
+
+
+<!-- <div class="deep-img">
+            <img class="deep-card" src="Media/closeknit-card.png" alt="">
+            <h1>CloseKnit Health</h1>
+            <p>Creating a scalable, multi-platform solution for virtual urgent care.</p>
+        </div>
+    </div>
+
+    <p class="focus">"We are so impressed by how collaborative and organized thoughtbot's cross-functional team was.
+        They were able to work through unexpected challenges with strategic focus. That remained consistent throughout
+        our nine-month engagement.</p>
+    <div class="review">
+        <img class="imgi79" src="Media/anne-bartholomew.jpeg" alt="">
+        <h1>Director Bartholomew</h1>
+    </div>
+    <p class="ment">Director of Product Management, Havard Business Review</p>
+    <div class="case-study">
+        <p class="bus">Read the Havard Business Review case study</p>
+        <h1>&rightarrow;</h1>
+    </div>
+    <div class="enteam">
+        <img class="purpose-img" src="Media/purpose-driven-teams.svg" alt="">
+        <h2>Our company</h2>
+    </div>
+    <h1 class="pose">Purpose-driven teams</h1>
+    <p class="best">Our team is driven by our purpose and values; we continually improve our process, do our best work
+        in strong partnerships with you, and transparently share how we work. We now have teammates located throughout
+        the Americas, Europe, West Asia, and Africa enabling us to take on client projects around the world.</p>
+
+    <div class="arrow">
+        <p>Learn more about our company</p>
+        <h1>&rightarrow;</h1>
+    </div>
+
+    <div class="source">
+        <h1 class="designers">Resources for Designers, Developers, and Leaders</h1>
+        <p>Reap the rewards of everything we've learned while building successful products
+        </p>
+    </div>
+
+    <div class="tech-lead">
+        <div class="level-sec">
+            <h1>Tech Leadership</h1>
+            <p>A quick-library to help your team level up processes and decision-making.</p>
+        </div>
+
+        <div class="sprint">
+            <h1>Design Sprint Guide</h1>
+            <p>Our guide to conducting and facilitating Product Design Sprints.</p>
+        </div>
+        <div class="upcase">
+            <h1>Upcase</h1>
+            <p>Become an experienced developer and take “junior” out of your title.</p>
+        </div>
+    </div>
+
+    <div class="dotted">
+        <div class="rest">
+            <h1>Dive into our resources</h1>
+            <p>&rightarrow;</p>
+        </div>
+
+        <div class="text">
+            <h1>Start your sprint</h1>
+            <p>&rightarrow;</p>
+        </div>
+
+        <div class="jest">
+            <h1>Learn from the experts</h1>
+            <p>&rightarrow;</p>
+        </div>
+    </div>
+    <div class="playbook">
+        <div class="book">
+            <h1>Our Playbook</h1>
+            <p>Our documented approach to making successful web and mobile products.
+            </p>
+        </div>
+        <div class="cook">
+            <h1>Our Blog</h1>
+            <p>The latest design, development, and product tools, techniques and more.
+            </p>
+        </div>
+        <div class="look">
+            <h1>Giant Robots Smashing Into Other Giant Robots Podcast</h1>
+            <p>A podcast about the design, development, and business of great software.</p>
+        </div>
+    </div>
+
+    <div class="discover">
+        <div class="way">
+            <h1>Discover a better way of working</h1>
+            <p>&rightarrow;</p>
+        </div>
+        <div class="may">
+            <h1>Stay current on best practices</h1>
+            <p>&rightarrow;</p>
+        </div>
+        <div class="hay">
+            <h1>Listen and subscribe</h1>
+            <p>&rightarrow;</p>
+        </div>
+    </div>
+
+    <div class="hook">
+        <h1>What does success look like for your project?</h1>
+        <button>Let's Chat</button>
+    </div>
+    <hr class="thin-line">
+    <div class="spons">
+        <div class="twitch">
+            <p>thoughtbot</p>
+        </div>
+        <div class="feeds">
+            <p>Services</p>
+            <p>Case Studies</p>
+            <p>Resources</p>
+            <p class="le">Let's talk</p>
+        </div>
+        <div class="heed">
+            <p>Our Company</p>
+            <p>Careers</p>
+            <p>Purpose</p>
+            <p>Blog</p>
+            <p>Events</p>
+            <p>Sponsor</p>
+            <p>Store</p>
+        </div>
+        <div class="deed">
+            <p>Mastodon</p>
+            <p>Bluesky</p>
+            <p>GitHub</p>
+            <p>YouTube</p>
+            <p>Twitch</p>
+            <p>Feeds</p>
+        </div>
+    </div>
+    <div class="since">
+        <div class="robot">
+            <p>© 2026 thoughtbot, inc.</p>
+            <p>The design of a robot and thoughtbot are registered trademarks of thoughtbot, inc.</p>
+        </div>
+        <div class="foreign-no">
+            <p>US: +1 (877) 9-ROBOTS</p>
+            <p>UK: +44 (0)20 3807 0560</p>
+        </div>
+    </div>
+    <div class="conduct">
+        <p>Code of Conduct</p>
+        <p>Accessibility Statement</p>
+        <p>Privacy Policy</p>
+    </div> -->
+
+
+
+
+
+
+
+
+    
+</body>
+</html>

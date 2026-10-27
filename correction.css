@@ -1,0 +1,44 @@
+.background{
+    width: ;
+    height: ;
+    background-color: ;
+}
+.box{
+padding-top: 20px;
+padding-bottom: 20px;
+padding-left: 30px;
+padding-right: 40px;
+}
+.much{
+    width: 290px;
+    text-align: center;
+    margin: auto;
+    background-color: firebrick;
+
+}
+span{
+    background-color: limegreen;
+}
+.linear{
+    margin-top: 10px;
+    width: 400p;
+    height: 400px; 
+    background-color: linear-gradient(red,blue,green);
+}
+.linear2{
+    width: 500p;
+    height: 500px; 
+    background-color: linear-gradient(to left,red,blue,green);
+}
+.rida{
+    width: 200px;
+    height: 200px;
+    background-color:(red,blue,green) ;
+}
+.shadow{
+    width: 200px;
+    height: 200px;
+    background-color:red ; 
+/* box-shadow: x-axis y-axis blur color:; */
+
+}
